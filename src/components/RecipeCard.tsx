@@ -1,17 +1,38 @@
-'use client'
-import { ReactNode, useState } from 'react'
+'use client';
 
-const RecipeCard = ({children, title} : {children: ReactNode, title: string}) => {
-    const [isOpen, setIsOpen] = useState(false);
+import { ReactNode, useState } from 'react';
 
+const RecipeCard = ({
+  children,
+  title,
+}: {
+  children: ReactNode;
+  title: string;
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className='flex-col bg-emerald-500 m-5 p-5 rounded-lg'>
-        <h1 className='p-4 text-black dark:text-white text-2xl'>{title}</h1>
-        {isOpen && children}
-        <button className='bg-gray-400 p-2 rounded-lg' onClick={() => setIsOpen(prev => !prev)}>{isOpen ? "Скрыть" : "Раскрыть"}</button>
-    </div>
-  )
-}
+    <div className="group overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900">
+      <h2 className="mb-4 text-2xl font-bold text-slate-900 dark:text-slate-100">
+        {title}
+      </h2>
 
-export default RecipeCard
+      <div
+        className={`overflow-hidden transition-all duration-300 ${
+          isOpen ? "mb-5 max-h-96 opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        {children}
+      </div>
+
+      <button
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="w-full rounded-xl bg-indigo-600 px-4 py-3 font-semibold text-white transition-all duration-300 hover:bg-indigo-500 active:scale-95"
+      >
+        {isOpen ? "▲ Скрыть информацию" : "▼ Подробнее"}
+      </button>
+    </div>
+  );
+};
+
+export default RecipeCard;
