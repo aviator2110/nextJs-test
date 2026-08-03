@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode, useState } from 'react';
+import Button from './Button';
 
 const RecipeCard = ({
   children,
@@ -25,12 +26,11 @@ const RecipeCard = ({
         {children}
       </div>
 
-      <button
+      <Button
         onClick={() => setIsOpen((prev) => !prev)}
-        className="w-full rounded-xl bg-indigo-600 px-4 py-3 font-semibold text-white transition-all duration-300 hover:bg-indigo-500 active:scale-95"
       >
         {isOpen ? "▲ Скрыть информацию" : "▼ Подробнее"}
-      </button>
+      </Button>
     </div>
   );
 };
