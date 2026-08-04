@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { delay } from "@/src/utils/delay";
+import { pushRecipe } from "@/data/recipes";
 
 const schema = z.object({
   title: z.string().trim().min(1, "Введите название рецепта"),
@@ -30,7 +31,10 @@ export async function addRecipe(
     };
   }
 
-  // ...:: push in array ::...
+  const title = String(formData.get("title"))
+  const cookTimeMin = Number(formData.get("cookTimeMin"))
+  console.log(title, cookTimeMin)
+  pushRecipe(title, cookTimeMin)
 
   revalidatePath("/recipes");
 

@@ -8,7 +8,9 @@ const RecipecPage = async () => {
   await delay(1000);
 
   const base_url = process.env.BASE_URL;
-  const response = await fetch(`${base_url}/api/recipes`);
+  const response = await fetch(`${base_url}/api/recipes`, {
+    cache: "no-store",
+  });
   const { recipes }: { recipes: Recipe[] } = await response.json();
 
   return (
