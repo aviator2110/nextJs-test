@@ -12,6 +12,13 @@ const RecipecPage = async () => {
     cache: "no-store",
   });
   const { recipes }: { recipes: Recipe[] } = await response.json();
+  const statsResponse = await fetch(`${base_url}/api/recipes/stats`, {
+    next: {
+      revalidate: 60,
+    },
+  });
+
+  const stats = await statsResponse.json();
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
@@ -32,6 +39,9 @@ const RecipecPage = async () => {
           >
             + New Recipe
           </Link>
+          <p className="text-black dark:text-white">
+            Статистика: приготовлено {stats.cooked} из {stats.total}
+          </p>
         </div>
 
         {recipes.length > 0 ? (
